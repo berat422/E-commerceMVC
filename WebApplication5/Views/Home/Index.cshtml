@@ -1,0 +1,15 @@
+﻿@using WebApplication5.ViewModels
+@model HomeViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <div class="text-center">
+        <button class="btn btn-dark filter-button" data-filter="all">All</button>
+    </div>
+   @foreach (var categ in Model.categories)
+   {
+    <button class="btn btn-outline-secondary filter-button" data-filter="@categ.Name">@categ.Name</button>
+   }
+</div>

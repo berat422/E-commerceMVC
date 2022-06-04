@@ -1,0 +1,120 @@
+﻿
+
+@model Product
+@{
+    var title = "Add Product";
+
+}
+@using WebApplication5.Helpers
+
+<form method="post" asp-action="Delete" enctype="multipart/form-data">
+    @if (Model.ProductId != null && Model.ProductId != 0)
+    {
+        <input asp-for="ProductId" hidden />
+    }
+
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-info pl-3">Delete </h2>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row">
+                    <div class="col-4">
+                        Name
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="col-8">
+                        <input  disabled asp-for="Name" type="text" class="form-control" placeholder="Name" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        Description
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="col-8">
+                        <textarea disabled asp-for="Description" type="text" class="form-control summernote" placeholder="Description" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        Image
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                    </div>
+                    <div class="col-8">
+                        <input  disabled name="files" type="file" id="uploadBox" multiple class="form-control" placeholder="Choose Image" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        Price
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Price" type="number" class="form-control" placeholder="Price" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        Category
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+                    <div class="col-8">
+                        <select  disabled asp-for="CategoryId" asp-items="@ViewBag.CategorySelectedItem" class="form-control" placeholder="Price">
+                            <option disabled selected>--select--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-4 row">
+                        <div class="col">
+                            @if (Model.ProductId != null && Model.ProductId != 0)
+                            {
+                                <input type="submit" value="Delete" class="btn btn-info w-100" />
+                            }
+                           
+
+                        </div>
+                        <div class="col"><a asp-controller="Product" asp-action="Index" class="btn btn-success w-100">Back</a></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="pt-4 col-3 offset-1">
+            <img src="@WC.ImagePath@Model.Image" width="100%" style="border-radius:5px;border:1px solid #bbb" />
+        </div>
+    </div>
+
+</form>
+
+@section Scripts
+{
+    <script>
+    function validate() {
+        if(document.getElementById("uploadBox").value == "") {
+            Swal.fire(
+                'Error!',
+                'Please upload an image',
+                'error')
+            return false
+
+        }
+        return true;
+    }
+
+    $(document).ready(function () {
+        $('.summernote').summernote({
+        height:250});
+    });
+
+
+    </script>
+
+    @{
+        <partial name="_ValidationScriptspartial" />
+    }
+}
+
+
